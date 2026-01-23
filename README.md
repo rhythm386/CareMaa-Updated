@@ -4,16 +4,18 @@
        npm install
        npm start
 
-  cd Frontend
+    cd Frontend
        npm install
        npm start
 
 Backend Folder
   - config folder - db.js file
-  - models folder- PregnancyRecord.js
+  - models folder-
+  -               - PregnancyRecord.js
   -               - user.js
   -               - Vaccination.js
-  - Routes Folder-authRoutes.js
+  - Routes Folder-
+  -              - authRoutes.js
   -              -PregnancyRoutes.js
   -              - RiskRoutes.js
   -              -VaccinationRoutes.js
