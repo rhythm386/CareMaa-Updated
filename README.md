@@ -20,8 +20,9 @@ Backend Folder
   - server.js
 
 Frontend Folder
-  -src folder
-       - components folder
+    -src folder- 
+    
+    components folder
           -Dashboard.js
           -FeatureCard.jsx
           -Footer.jsx
@@ -29,8 +30,10 @@ Frontend Folder
           -Navbar.jsx
           -ProtectedRoute.jsx
           -RiskPrediction.js
+          
        -context Folder
           -AuthContext.js
+          
        -pages Folder
           -Community.jsx
           - Home.jsx
@@ -41,8 +44,10 @@ Frontend Folder
           -ResetPassword.jsx
           -RiskPrediction.jsx
           - VaccinationTracker.jsx
+          
        -services Folder
           -api.js
+          
     src Folder only-
     - App.css
     - App.js
