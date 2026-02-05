@@ -1,22 +1,34 @@
 const mongoose = require("mongoose");
 
-const diseaseSchema = new mongoose.Schema({
-  category: {
-    type: String,
-    enum: ["Girl Child", "Periods", "Pregnancy"],
-    required: true
-  },
-  disease_name: {
-    type: String,
-    required: true
-  },
+const DiseaseSchema = new mongoose.Schema({
+  name: { type: String, required: true, unique: true },
+
+  description: String,
+
   symptoms: [String],
-  common_medicines: [String],
-  recommended_specialist: String,
-  severity: {
-    type: String,
-    enum: ["Mild", "Moderate", "Serious"]
-  }
+
+  causes: [String],
+
+  precautions: [String],
+
+  treatment: String,
+
+  medicines: [
+    {
+      name: String,
+      dosage: String,
+      notes: String
+    }
+  ],
+
+  doctors: [
+    {
+      name: String,
+      specialization: String,
+      hospital: String,
+      contact: String
+    }
+  ]
 });
 
-module.exports = mongoose.model("Disease", diseaseSchema);
+module.exports = mongoose.model("Disease", DiseaseSchema);

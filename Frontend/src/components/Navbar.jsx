@@ -1,42 +1,48 @@
 import { Link, useLocation } from "react-router-dom";
-import './Navbar.css';  // Add CSS file below
+import './Navbar.css';
 
 function Navbar() {
-  const location = useLocation(); // For active link highlighting
-  
+  const location = useLocation();
+
+  const isActive = (path) =>
+    location.pathname === path ? "nav-link active" : "nav-link";
+
   return (
     <nav className="navbar">
+      {/* BRAND */}
       <div className="nav-brand">
-        <h2>🚀 CareMaa</h2>
+        <h2>💙 CareMaa</h2>
       </div>
-      
+
+      {/* LINKS */}
       <div className="nav-links">
-        <Link to="/" className={location.pathname === "/" ? "nav-link active" : "nav-link"}>
+        <Link to="/" className={isActive("/")}>
           🏠 Home
         </Link>
-        
-        <Link to="/tracker" className={location.pathname === "/tracker" ? "nav-link active" : "nav-link"}>
+
+        <Link to="/tracker" className={isActive("/tracker")}>
           📅 Period Tracker
         </Link>
-        
-        <Link to="/pregnancy" className={location.pathname === "/pregnancy" ? "nav-link active" : "nav-link"}>
+
+        <Link to="/pregnancy" className={isActive("/pregnancy")}>
           🤰 Pregnancy
         </Link>
-        
-        <Link to="/vaccination" className={location.pathname === "/vaccination" ? "nav-link active" : "nav-link"}>
+
+        <Link to="/vaccination" className={isActive("/vaccination")}>
           💉 Vaccination
         </Link>
-        
-        <Link to="/nutrition" className={location.pathname === "/nutrition" ? "nav-link active" : "nav-link"}>
+
+        <Link to="/nutrition" className={isActive("/nutrition")}>
           🥗 Nutrition
         </Link>
-        
-        <Link to="/risk" className={location.pathname === "/risk" ? "nav-link active" : "nav-link"}>
+
+        <Link to="/risk" className={isActive("/risk")}>
           🤖 AI Risk
         </Link>
-        
-        <Link to="/community" className={location.pathname === "/community" ? "nav-link active" : "nav-link"}>
-          👥 Community
+
+        {/* ⭐ NEW COMMUNITY LINK */}
+        <Link to="/community" className={isActive("/community")}>
+          🌸 Community
         </Link>
       </div>
     </nav>
