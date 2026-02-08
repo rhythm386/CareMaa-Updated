@@ -210,4 +210,8 @@ Built for hackathon & learning purposes 💙
 ```bash
 git add README.md
 git commit -m "Add README with setup instructions"
+<<<<<<< HEAD
 git push origin main
+=======
+git push origin main
+>>>>>>> 6cbabb2eca70dc8d1c913a070525397fad1fa9cb
