@@ -1,0 +1,55 @@
+/* Nothing OS color palette - matches Frontend updated */
+
+:root {
+  --font-size: 16px;
+  --background: #F5F5F0;
+  --foreground: #1A1A1A;
+  --card: #F5F5F0;
+  --card-foreground: #1A1A1A;
+  --popover: #F5F5F0;
+  --popover-foreground: #1A1A1A;
+  --primary: #1A1A1A;
+  --primary-foreground: #F5F5F0;
+  --secondary: #D4D4D0;
+  --secondary-foreground: #1A1A1A;
+  --muted: #D4D4D0;
+  --muted-foreground: #666666;
+  --accent: #D4D4D0;
+  --accent-foreground: #1A1A1A;
+  --destructive: #d4183d;
+  --destructive-foreground: #ffffff;
+  --border: #D4D4D0;
+  --input: transparent;
+  --input-background: #F5F5F0;
+  --switch-background: #D4D4D0;
+  --system-green: #4CAF50;
+  --system-green-muted: #6B8E6B;
+  --font-weight-medium: 500;
+  --font-weight-normal: 400;
+  --ring: #666666;
+  --radius: 1.25rem;
+}
+
+.dark {
+  --background: #0A0A0A;
+  --foreground: #F5F5F0;
+  --card: #0A0A0A;
+  --card-foreground: #F5F5F0;
+  --popover: #0A0A0A;
+  --popover-foreground: #F5F5F0;
+  --primary: #F5F5F0;
+  --primary-foreground: #0A0A0A;
+  --secondary: #1A1A1A;
+  --secondary-foreground: #F5F5F0;
+  --muted: #1A1A1A;
+  --muted-foreground: #999999;
+  --accent: #1A1A1A;
+  --accent-foreground: #F5F5F0;
+  --destructive: #d4183d;
+  --destructive-foreground: #F5F5F0;
+  --border: #1A1A1A;
+  --input: #1A1A1A;
+  --ring: #999999;
+  --system-green: #5DBE61;
+  --system-green-muted: #5A7A5C;
+}

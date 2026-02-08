@@ -1,49 +1,64 @@
 import { Link, useLocation } from "react-router-dom";
+import DarkModeIcon from '@mui/icons-material/DarkMode';
+import LightModeIcon from '@mui/icons-material/LightMode';
 import './Navbar.css';
 
-function Navbar() {
+function Navbar({ isDark = false, onToggleDark }) {
   const location = useLocation();
 
-  const isActive = (path) =>
-    location.pathname === path ? "nav-link active" : "nav-link";
+  const isActive = (path) => location.pathname === path;
+
+  const navItems = [
+    { path: '/', label: 'DASHBOARD' },
+    { path: '/tracker', label: 'PERIOD TRACKER' },
+    { path: '/pregnancy', label: 'PREGNANCY' },
+    { path: '/vaccination', label: 'VACCINATION' },
+    { path: '/nutrition', label: 'NUTRITION' },
+    { path: '/risk', label: 'AI RISK' },
+    { path: '/community', label: 'COMMUNITY' },
+  ];
 
   return (
     <nav className="navbar">
-      {/* BRAND */}
       <div className="nav-brand">
-        <h2>💙 CareMaa</h2>
+        <span className="nav-logo-text">Care Maa</span>
       </div>
 
-      {/* LINKS */}
       <div className="nav-links">
-        <Link to="/" className={isActive("/")}>
-          🏠 Home
-        </Link>
+        {navItems.map(({ path, label }) =>
+          path === '/' ? (
+            <Link
+              key={path}
+              to={path}
+              className={`nav-link ${isActive(path) ? 'active' : ''}`}
+            >
+              {label}
+            </Link>
+          ) : (
+            <Link
+              key={path}
+              to={path}
+              className={`nav-link ${isActive(path) ? 'active' : ''}`}
+            >
+              {label}
+            </Link>
+          )
+        )}
+      </div>
 
-        <Link to="/tracker" className={isActive("/tracker")}>
-          📅 Period Tracker
-        </Link>
-
-        <Link to="/pregnancy" className={isActive("/pregnancy")}>
-          🤰 Pregnancy
-        </Link>
-
-        <Link to="/vaccination" className={isActive("/vaccination")}>
-          💉 Vaccination
-        </Link>
-
-        <Link to="/nutrition" className={isActive("/nutrition")}>
-          🥗 Nutrition
-        </Link>
-
-        <Link to="/risk" className={isActive("/risk")}>
-          🤖 AI Risk
-        </Link>
-
-        {/* ⭐ NEW COMMUNITY LINK */}
-        <Link to="/community" className={isActive("/community")}>
-          🌸 Community
-        </Link>
+      <div className="nav-actions">
+        <button
+          type="button"
+          onClick={onToggleDark}
+          className="nav-toggle-dark"
+          aria-label="Toggle dark mode"
+        >
+          {isDark ? (
+            <LightModeIcon sx={{ fontSize: 20 }} />
+          ) : (
+            <DarkModeIcon sx={{ fontSize: 20 }} />
+          )}
+        </button>
       </div>
     </nav>
   );

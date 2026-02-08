@@ -1,39 +1,97 @@
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
+/* Nothing OS style - matches Frontend updated */
+
+.App.app-wrap {
+  font-family: 'JetBrains Mono', monospace;
 }
 
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  padding: 15px;
-  background: #2c7be5;
+.App.app-wrap ::selection {
+  background: var(--foreground);
+  color: var(--background);
 }
 
-.navbar a {
-  color: white;
-  margin-left: 10px;
-  text-decoration: none;
-}
-
+/* Main content area - same as reference */
 .page {
-  padding: 20px;
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
 }
 
+/* Card panel style - reference: bg-muted/20 border border-border/40 rounded-2xl */
+.card-panel {
+  background: color-mix(in srgb, var(--muted) 20%, transparent);
+  border: 1px solid color-mix(in srgb, var(--border) 40%, transparent);
+  border-radius: 1.25rem;
+  padding: 1.5rem;
+  transition: transform 0.3s ease;
+}
+
+.card-panel:hover {
+  transform: translateY(-2px);
+}
+
+/* Section label - reference: text-[10px] tracking-[0.2em] uppercase opacity-50 */
+.section-label {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.5;
+  margin-bottom: 1rem;
+}
+
+/* Grid for feature cards */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 15px;
+  gap: 1.5rem;
 }
 
+/* Card - reference style */
 .card {
-  padding: 15px;
-  border-radius: 8px;
-  background: #f2f2f2;
+  background: color-mix(in srgb, var(--muted) 20%, transparent);
+  border: 1px solid color-mix(in srgb, var(--border) 40%, transparent);
+  border-radius: 1.25rem;
+  padding: 1.5rem;
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+}
+
+.card h3 {
+  font-size: 1rem;
+  font-weight: 500;
+  margin: 0 0 0.5rem 0;
+  letter-spacing: 0.02em;
+}
+
+.card p {
+  font-size: 0.875rem;
+  opacity: 0.7;
+  margin: 0;
+  letter-spacing: 0.02em;
 }
 
 .footer {
-  text-align: center;
-  padding: 10px;
-  background: #eee;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Main content wrapper - reference: max-w-[1400px] bg-card border rounded-[2rem] p-8 */
+.main-content-wrap {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: var(--card);
+  border: 1px solid color-mix(in srgb, var(--border) 30%, transparent);
+  border-radius: 2rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.dashboard-main {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 2rem;
 }

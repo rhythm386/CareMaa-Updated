@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
@@ -15,21 +15,56 @@ import RiskPrediction from './pages/RiskPrediction';
 import Community from './pages/Community';
 import ProtectedRoute from './components/ProtectedRoute';
 
-const theme = createTheme({
+const lightTheme = createTheme({
   palette: {
-    primary: { main: '#1976d2' },
-    secondary: { main: '#f50057' }
-  }
+    mode: 'light',
+    primary: { main: '#1A1A1A' },
+    secondary: { main: '#D4D4D0' },
+    background: { default: '#F5F5F0', paper: '#F5F5F0' },
+    text: { primary: '#1A1A1A', secondary: '#666666' },
+  },
+  shape: { borderRadius: 20 },
+  typography: {
+    fontFamily: '"JetBrains Mono", monospace',
+  },
+});
+
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+    primary: { main: '#F5F5F0' },
+    secondary: { main: '#1A1A1A' },
+    background: { default: '#0A0A0A', paper: '#0A0A0A' },
+    text: { primary: '#F5F5F0', secondary: '#999999' },
+  },
+  shape: { borderRadius: 20 },
+  typography: {
+    fontFamily: '"JetBrains Mono", monospace',
+  },
 });
 
 function AppContent() {
+  const [isDark, setIsDark] = useState(false);
+
+  const toggleDark = () => {
+    setIsDark((prev) => !prev);
+    document.documentElement.classList.toggle('dark');
+  };
+
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
       <CssBaseline />
       <BrowserRouter>
         <AuthProvider>
-          <div className="App">
-            <Navbar />
+          <div
+            className="App app-wrap"
+            style={{
+              minHeight: '100vh',
+              backgroundColor: 'var(--background)',
+              color: 'var(--foreground)',
+            }}
+          >
+            <Navbar isDark={isDark} onToggleDark={toggleDark} />
             <Routes>
               <Route path="/login" element={<Login />} />
               <Route path="/" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />

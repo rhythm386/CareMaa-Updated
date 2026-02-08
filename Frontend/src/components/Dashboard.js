@@ -1,7 +1,33 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Grid, Card, CardContent, Typography, Chip, Avatar, Paper, Box, Button } from '@mui/material';
+import { Grid, Typography, Box, Button } from '@mui/material';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import './Dashboard.css';
+
+const statCardSx = {
+  background: 'color-mix(in srgb, var(--muted) 20%, transparent)',
+  border: '1px solid color-mix(in srgb, var(--border) 40%, transparent)',
+  borderRadius: '1.25rem',
+  p: 2,
+  height: 120,
+  transition: 'transform 0.3s ease',
+  '&:hover': { transform: 'translateY(-2px)' },
+};
+
+const featureCardSx = {
+  background: 'color-mix(in srgb, var(--muted) 20%, transparent)',
+  border: '1px solid color-mix(in srgb, var(--border) 40%, transparent)',
+  borderRadius: '1.25rem',
+  p: 3,
+  height: 200,
+  cursor: 'pointer',
+  transition: 'transform 0.3s ease',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  textAlign: 'center',
+  '&:hover': { transform: 'translateY(-2px)' },
+};
 
 const Dashboard = () => {
   const { user, logout } = useAuth();
@@ -9,7 +35,6 @@ const Dashboard = () => {
   const [userData, setUserData] = useState({});
 
   useEffect(() => {
-    // Fetch user profile data
     fetch('http://localhost:5000/api/profile', {
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
     })
@@ -19,88 +44,72 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <Container maxWidth="lg" sx={{ mt: 4 }}>
-      <Paper elevation={3} sx={{ p: 4, mb: 4 }}>
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
-          <Box>
-            <Typography variant="h4" fontWeight="bold" gutterBottom>
-              Welcome back, {user?.name || 'Mom'}! 👋
-            </Typography>
-            <Typography color="text.secondary">
-              Your pregnancy data is synced and secure
-            </Typography>
+    <main className="dashboard-main">
+      <div className="main-content-wrap">
+        {/* Hero / Welcome panel - reference style */}
+        <div className="dashboard-hero card-panel dashboard-hero-inner">
+          <div className="section-label">SYSTEM STATUS: STABLE</div>
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 2 }}>
+            <Box>
+              <Typography variant="h4" className="dashboard-hero-title">
+                Welcome back, {user?.name || 'Mom'}
+              </Typography>
+              <Typography variant="body2" sx={{ opacity: 0.6, letterSpacing: '0.05em', mt: 0.5 }}>
+                Your pregnancy data is synced and secure
+              </Typography>
+            </Box>
+            <Button
+              variant="outlined"
+              onClick={logout}
+              sx={{
+                borderColor: 'var(--border)',
+                color: 'var(--foreground)',
+                '&:hover': { borderColor: 'var(--foreground)', bgcolor: 'var(--muted)' },
+              }}
+            >
+              Logout
+            </Button>
           </Box>
-          <Button variant="outlined" color="error" onClick={logout}>
-            Logout
-          </Button>
-        </Box>
+        </div>
 
-        <Grid container spacing={3}>
-          <Grid item xs={12} sm={6} md={3}>
-            <Card sx={{ height: 120 }}>
-              <CardContent>
-                <Chip label="Weeks Pregnant" color="primary" size="small" sx={{ mb: 2 }} />
-                <Typography variant="h4">{userData.pregnancyData?.weeksPregnant || 0}</Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-          <Grid item xs={12} sm={6} md={3}>
-            <Card sx={{ height: 120 }}>
-              <CardContent>
-                <Chip label="Vaccines" color="success" size="small" sx={{ mb: 2 }} />
-                <Typography variant="h4">{userData.vaccinationData?.length || 0}</Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-          <Grid item xs={12} sm={6} md={3}>
-            <Card sx={{ height: 120 }}>
-              <CardContent>
-                <Chip label="Risk Score" color="warning" size="small" sx={{ mb: 2 }} />
-                <Typography variant="h4">Low</Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-          <Grid item xs={12} sm={6} md={3}>
-            <Card sx={{ height: 120 }}>
-              <CardContent>
-                <Chip label="Cycles Tracked" color="secondary" size="small" sx={{ mb: 2 }} />
-                <Typography variant="h4">{userData.periodData?.length || 0}</Typography>
-              </CardContent>
-            </Card>
-          </Grid>
+        {/* Stat cards row */}
+        <Grid container spacing={2} sx={{ mb: 3 }}>
+          {[
+            { label: 'WEEKS PREGNANT', value: userData.pregnancyData?.weeksPregnant ?? 0 },
+            { label: 'VACCINES', value: userData.vaccinationData?.length ?? 0 },
+            { label: 'RISK SCORE', value: 'Low' },
+            { label: 'CYCLES TRACKED', value: userData.periodData?.length ?? 0 },
+          ].map(({ label, value }) => (
+            <Grid item xs={12} sm={6} md={3} key={label}>
+              <Box sx={statCardSx}>
+                <div className="section-label">{label}</div>
+                <Typography variant="h4" sx={{ fontWeight: 500, letterSpacing: '-0.02em' }}>
+                  {value}
+                </Typography>
+              </Box>
+            </Grid>
+          ))}
         </Grid>
-      </Paper>
 
-      <Grid container spacing={3}>
-        <Grid item xs={12} md={4}>
-          <Card sx={{ height: 200, cursor: 'pointer' }} onClick={() => navigate('/tracker')}>
-            <CardContent sx={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', textAlign: 'center' }}>
-              <Avatar sx={{ mx: 'auto', mb: 2, width: 60, height: 60, bgcolor: '#ff9800' }}>📅</Avatar>
-              <Typography variant="h6" fontWeight="bold">Period Tracker</Typography>
-              <Typography variant="body2" color="text.secondary">Track cycles & predict ovulation</Typography>
-            </CardContent>
-          </Card>
+        {/* Feature cards - reference style */}
+        <div className="section-label" style={{ marginBottom: '1rem' }}>QUICK ACTIONS</div>
+        <Grid container spacing={2}>
+          {[
+            { path: '/tracker', emoji: '📅', title: 'Period Tracker', subtitle: 'Track cycles & predict ovulation' },
+            { path: '/pregnancy', emoji: '🤰', title: 'Pregnancy Tracker', subtitle: 'Week-by-week progress' },
+            { path: '/vaccination', emoji: '💉', title: 'Vaccination Tracker', subtitle: 'QR certificates & schedule' },
+          ].map(({ path, emoji, title, subtitle }) => (
+            <Grid item xs={12} md={4} key={path}>
+              <Box sx={featureCardSx} onClick={() => navigate(path)}>
+                <Box sx={{ fontSize: '2.5rem', mb: 1 }}>{emoji}</Box>
+                <Typography variant="subtitle1" fontWeight={500}>{title}</Typography>
+                <Typography variant="body2" sx={{ opacity: 0.7, mt: 0.5 }}>{subtitle}</Typography>
+              </Box>
+            </Grid>
+          ))}
         </Grid>
-        <Grid item xs={12} md={4}>
-          <Card sx={{ height: 200, cursor: 'pointer' }} onClick={() => navigate('/pregnancy')}>
-            <CardContent sx={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', textAlign: 'center' }}>
-              <Avatar sx={{ mx: 'auto', mb: 2, width: 60, height: 60, bgcolor: '#f50057' }}>🤰</Avatar>
-              <Typography variant="h6" fontWeight="bold">Pregnancy Tracker</Typography>
-              <Typography variant="body2" color="text.secondary">Week-by-week progress</Typography>
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid item xs={12} md={4}>
-          <Card sx={{ height: 200, cursor: 'pointer' }} onClick={() => navigate('/vaccination')}>
-            <CardContent sx={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', textAlign: 'center' }}>
-              <Avatar sx={{ mx: 'auto', mb: 2, width: 60, height: 60, bgcolor: '#4caf50' }}>💉</Avatar>
-              <Typography variant="h6" fontWeight="bold">Vaccination Tracker</Typography>
-              <Typography variant="body2" color="text.secondary">QR certificates & schedule</Typography>
-            </CardContent>
-          </Card>
-        </Grid>
-      </Grid>
-    </Container>
+      </div>
+    </main>
   );
 };
 
